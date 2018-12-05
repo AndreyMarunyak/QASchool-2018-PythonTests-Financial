@@ -24,10 +24,16 @@ class FinanceTests(unittest.TestCase):
         Expected_exchange = Chrome.find_element(By.XPATH, EXPECTED_EXCHANGE).text
         Expected_exchange = round((float(Expected_exchange) * 120), 2)
 
-
         self.assertTrue(Expected_exchange == float(Actual_exchange))
+
+    def test_2_averageCurrency(self):
+        span_list = []
+        for el in range(1, 30):
+            span_list.append(Chrome.find_element(By.XPATH, "//*[@id='latest_currency_container']/tbody[1]/tr["+str(el)+"]/td[1]/span/span").text)
+        print(span_list)
 
     @classmethod
     def tearDownClass(cls):
-        Chrome.close()
-        Chrome.quit()
+        pass
+        #Chrome.close()
+        #Chrome.quit()
