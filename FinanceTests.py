@@ -2,7 +2,6 @@ import time
 import unittest
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
 
 from Browser import *
 from ConfigData import *
@@ -24,16 +23,20 @@ class FinanceTests(unittest.TestCase):
         Expected_exchange = Chrome.find_element(By.XPATH, EXPECTED_EXCHANGE).text
         Expected_exchange = round((float(Expected_exchange) * 120), 2)
 
-        self.assertTrue(Expected_exchange == float(Actual_exchange))
+        self.assertTrue(Expected_exchange == float(Actual_exchange), 'Wrong calculating')
 
     def test_2_averageCurrency(self):
-        span_list = []
-        for el in range(1, 30):
-            span_list.append(Chrome.find_element(By.XPATH, "//*[@id='latest_currency_container']/tbody[1]/tr["+str(el)+"]/td[1]/span/span").text)
-        print(span_list)
+
+        average_expected = float(Chrome.find_element(By.XPATH, AVERAGE).text)
+        average_actual = round((sumRates(Chrome) / 29), 4)
+        print(average_actual)
+        print(average_expected)
+        self.assertTrue(average_actual == average_expected, 'Actual result {0}, expected result {1}'.format(
+            str(average_actual), str(average_expected)))
+
 
     @classmethod
     def tearDownClass(cls):
-        pass
-        #Chrome.close()
-        #Chrome.quit()
+
+        Chrome.close()
+        Chrome.quit()
