@@ -1,7 +1,5 @@
-import time
 import unittest
 
-from selenium.webdriver.common.by import By
 
 from Browser import *
 from ConfigData import *
