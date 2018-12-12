@@ -8,6 +8,7 @@ from ConfigData import *
 
 Chrome = Browser.chrome()
 
+
 class FinanceTests(unittest.TestCase):
 
     @classmethod
@@ -20,7 +21,7 @@ class FinanceTests(unittest.TestCase):
         Actual_exchange = Chrome.execute_script("return arguments[0].value", Current_exchange)
         Actual_exchange = Actual_exchange.replace(' ', '')
 
-        Expected_exchange = Chrome.find_element(By.XPATH, EXPECTED_EXCHANGE).text
+        Expected_exchange = Chrome.find_element(By.XPATH, AVERAGE_VALUE).text
         Expected_exchange = round((float(Expected_exchange) * 120), 2)
 
         self.assertTrue(Expected_exchange == float(Actual_exchange), 'Wrong calculating')
