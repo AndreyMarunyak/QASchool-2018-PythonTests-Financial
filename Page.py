@@ -10,10 +10,10 @@ class MainPage():
     def find_element(self, *locator):
         return self.driver.find_element(*locator)
 
-    def calculate_average_value(self, values):
+    def __calculate_average_value(self):
         span_list = []
         for el in range(1, 30):
-            span_list.append(self.locator.list_of_values(el).text)
+            span_list.append(float(self.find_element(*self.locator.list_of_values(el)).text))
 
         return sum(span_list)
 
@@ -30,3 +30,9 @@ class MainPage():
         EXPECTED_VALUE = self.find_element(*self.locator.AVERAGE_VALUE_FIELD).text
         EXPECTED_VALUE = round((float(EXPECTED_VALUE) * 120), 2)
         return EXPECTED_VALUE
+
+    def get_expected_average_value(self):
+        return float(self.find_element(*self.locator.AVERAGE_VALUE_FIELD).text)
+
+    def get_actual_average_value(self):
+        return round((self.__calculate_average_value() / 29), 4)
