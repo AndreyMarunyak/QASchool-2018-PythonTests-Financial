@@ -23,16 +23,15 @@ class FinanceTests(unittest.TestCase):
 
         Actual_exchange = MainPage.get_exchange_value()
 
-        Expected_exchange = MainPage.get_expected_value()
+        expected_exchange = MainPage.get_expected_value()
 
-        self.assertTrue(Expected_exchange == Actual_exchange, 'Wrong calculating')
+        self.assertTrue(expected_exchange == Actual_exchange, 'Wrong calculating')
 
     def test_2_averageCurrency(self):
 
-        average_expected = float(Chrome.find_element(By.XPATH, AVERAGE).text)
-        average_actual = round((sumRates(Chrome) / 29), 4)
-        print(average_actual)
-        print(average_expected)
+        average_expected = MainPage.get_expected_average_value()
+        average_actual = MainPage.get_actual_average_value()
+
         self.assertTrue(average_actual == average_expected, 'Actual result {0}, expected result {1}'.format(
             str(average_actual), str(average_expected)))
 
