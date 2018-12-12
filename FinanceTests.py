@@ -21,6 +21,8 @@ class FinanceTests(unittest.TestCase):
         Actual_exchange = Chrome.execute_script("return arguments[0].value", Current_exchange)
         Actual_exchange = Actual_exchange.replace(' ', '')
 
+
+
         Expected_exchange = Chrome.find_element(By.XPATH, AVERAGE_VALUE).text
         Expected_exchange = round((float(Expected_exchange) * 120), 2)
 
