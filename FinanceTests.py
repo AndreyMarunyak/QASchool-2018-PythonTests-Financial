@@ -5,9 +5,11 @@ from selenium.webdriver.common.by import By
 
 from Browser import *
 from ConfigData import *
+from Page import MainPage
 
 Chrome = Browser.chrome()
 
+MainPage = MainPage(Chrome, URL)
 
 class FinanceTests(unittest.TestCase):
 
@@ -16,17 +18,14 @@ class FinanceTests(unittest.TestCase):
         Chrome.get(URL)
 
     def test_1_amountToSell(self):
-        Chrome.find_element(By.ID, CURRENCY_AMOUNT).send_keys('120')
-        Current_exchange = Chrome.find_element(By.XPATH, ACTUAL_EXCHANGE)
-        Actual_exchange = Chrome.execute_script("return arguments[0].value", Current_exchange)
-        Actual_exchange = Actual_exchange.replace(' ', '')
 
+        MainPage.set_value_to_exchange('120')
 
+        Actual_exchange = MainPage.get_exchange_value()
 
-        Expected_exchange = Chrome.find_element(By.XPATH, AVERAGE_VALUE).text
-        Expected_exchange = round((float(Expected_exchange) * 120), 2)
+        Expected_exchange = MainPage.get_expected_value()
 
-        self.assertTrue(Expected_exchange == float(Actual_exchange), 'Wrong calculating')
+        self.assertTrue(Expected_exchange == Actual_exchange, 'Wrong calculating')
 
     def test_2_averageCurrency(self):
 
